@@ -15,13 +15,8 @@
  */
 package com.ghgande.j2mod.modbus.net;
 
-import com.ghgande.j2mod.modbus.Modbus;
-import com.ghgande.j2mod.modbus.ModbusCoupler;
 import com.ghgande.j2mod.modbus.ModbusIOException;
 import com.ghgande.j2mod.modbus.io.AbstractModbusTransport;
-import com.ghgande.j2mod.modbus.msg.ModbusRequest;
-import com.ghgande.j2mod.modbus.msg.ModbusResponse;
-import com.ghgande.j2mod.modbus.procimg.ProcessImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,28 +59,12 @@ public class TCPConnectionHandler implements Runnable {
         transport = connection.getModbusTransport();
     }
 
+    @Override
     public void run() {
         try {
             do {
-                // Read the request
-                ModbusRequest request = transport.readRequest();
-                ModbusResponse response;
-
-                // Test if Process image exists and the Unit ID is good
-                ProcessImage spi = ModbusCoupler.getReference().getProcessImage();
-                if (spi == null ||
-                        (spi.getUnitID() != 0 && request.getUnitID() != spi.getUnitID())) {
-                    response = request.createExceptionResponse(Modbus.ILLEGAL_ADDRESS_EXCEPTION);
-                }
-                else {
-                    response = request.createResponse();
-                }
-                logger.debug("Request:{}", request.getHexMessage());
-                logger.debug("Response:{}", response.getHexMessage());
-
-                // Write the response message.
-                transport.writeMessage(response);
-            } while (true);
+                AbstractModbusListener.handleRequest(transport);
+            } while (!Thread.currentThread().isInterrupted());
         }
         catch (ModbusIOException ex) {
             if (!ex.isEOF()) {
@@ -93,12 +72,7 @@ public class TCPConnectionHandler implements Runnable {
             }
         }
         finally {
-            try {
-                connection.close();
-            }
-            catch (Exception ex) {
-                // ignore
-            }
+            connection.close();
         }
     }
 }

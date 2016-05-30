@@ -71,8 +71,7 @@ public class ModbusSerialMaster extends AbstractModbusMaster {
      */
     public synchronized void connect() throws Exception {
         if (connection != null && !connection.isOpen()) {
-            connection.open();
-            connection.getModbusTransport().setTimeout(timeout);
+            connection.open(timeout);
             transaction = connection.getModbusTransport().createTransaction();
             setTransaction(transaction);
         }

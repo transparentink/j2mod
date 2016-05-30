@@ -67,11 +67,22 @@ public class SerialConnection {
     }
 
     /**
-     * Opens the communication port.
+     * Opens the communication port using the default read timeout Modbus.DEFAULT_TIMEOUT
      *
      * @throws Exception if an error occurs.
      */
     public void open() throws Exception {
+        open(Modbus.DEFAULT_TIMEOUT);
+    }
+
+    /**
+     * Opens the communication port using the specified read timeout
+     *
+     * @param timeout Receive timeout in milliseconds
+     *
+     * @throws Exception if an error occurs.
+     */
+    public void open(int timeout) throws Exception {
         serialPort = SerialPort.getCommPort(parameters.getPortName());
         serialPort.closePort();
         setConnectionParameters();
@@ -87,6 +98,7 @@ public class SerialConnection {
             logger.warn("Unknown transport encoding [{}] - reverting to RTU", parameters.getEncoding());
         }
         transport.setEcho(parameters.isEcho());
+        transport.setTimeout(timeout);
 
         // Open the input and output streams for the connection. If they won't
         // open, close the port before throwing an exception.

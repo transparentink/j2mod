@@ -126,7 +126,7 @@ public final class ReadFIFOQueueResponse extends ModbusResponse {
 
         // The first register is the number of registers which
         // follow.  Save that as count, not as a register.
-        count = din.readShort();
+        count = din.readUnsignedShort();
         registers = new InputRegister[count];
 
         for (int i = 0; i < count; i++) {

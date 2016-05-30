@@ -127,7 +127,7 @@ public final class ReadSerialDiagnosticsResponse extends ModbusResponse {
      * readData -- Read the function code and data value
      */
     public void readData(DataInput din) throws IOException {
-        function = din.readShort() & 0xFFFF;
+        function = din.readUnsignedShort();
         data = (short)(din.readShort() & 0xFFFF);
     }
 

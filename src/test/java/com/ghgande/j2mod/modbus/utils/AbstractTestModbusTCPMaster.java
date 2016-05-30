@@ -21,7 +21,9 @@ import com.ghgande.j2mod.modbus.io.ModbusTCPTransaction;
 import com.ghgande.j2mod.modbus.io.ModbusTCPTransport;
 import com.ghgande.j2mod.modbus.msg.*;
 import com.ghgande.j2mod.modbus.net.ModbusTCPListener;
+import com.ghgande.j2mod.modbus.procimg.Register;
 import com.ghgande.j2mod.modbus.procimg.SimpleRegister;
+import com.ghgande.j2mod.modbus.util.BitVector;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.slf4j.Logger;
@@ -162,11 +164,11 @@ public class AbstractTestModbusTCPMaster extends AbstractTestModbus {
      *
      * @param functionCode Function code to use
      * @param register     Register number
-     * @param value        Value to apply
+     * @param values       Values to apply
      *
      * @return Response object
      */
-    protected static ModbusResponse writeRequest(int functionCode, int register, int value) {
+    protected static ModbusResponse writeRequest(int functionCode, int register, int... values) {
         ModbusTCPTransport transport = null;
         ModbusTCPTransaction trans;
         try {
@@ -178,10 +180,24 @@ public class AbstractTestModbusTCPMaster extends AbstractTestModbus {
             // Prepare the request
             switch (functionCode) {
                 case Modbus.WRITE_COIL:
-                    req = new WriteCoilRequest(register, value != 0);
+                    req = new WriteCoilRequest(register, values[0] != 0);
                     break;
                 case Modbus.WRITE_SINGLE_REGISTER:
-                    req = new WriteSingleRegisterRequest(register, new SimpleRegister(value));
+                    req = new WriteSingleRegisterRequest(register, new SimpleRegister(values[0]));
+                    break;
+                case Modbus.WRITE_MULTIPLE_REGISTERS:
+                    Register[] regs = new Register[values.length];
+                    for (int i = 0; i < values.length; i++) {
+                        regs[i] = new SimpleRegister(values[i]);
+                    }
+                    req = new WriteMultipleRegistersRequest(register, regs);
+                    break;
+                case Modbus.WRITE_MULTIPLE_COILS:
+                    BitVector bitVector = new BitVector(values.length);
+                    for (int i = 0; i < values.length; i++) {
+                        bitVector.setBit(i, values[i] != 0);
+                    }
+                    req = new WriteMultipleCoilsRequest(register, bitVector);
                     break;
                 default:
                     fail(String.format("Request type %d is not supported by the test harness", functionCode));

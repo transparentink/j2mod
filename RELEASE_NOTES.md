@@ -31,3 +31,16 @@
 
 ## Version 2.0
 * Replaced log4j with slf4j
+
+## Version 2.1
+* Corrections to ASCII transport - thanks transparentink
+* Added fix for infinite listening loop - thanks martentamerius
+* Removed duplicate request handling code
+* Fix unit tests on linux #9 - thanks martentamerius
+* Improved logging of errors and warnings with stack trace #10 - thanks martentamerius
+* Facilitate multiple processimages in ModbusCoupler. #11 - thanks martentamerius
+* WriteMultipleRegisters (Function Code : 0x10) does not work. #14 - chnaged use of signed shorts to unsigned
+* Serial/RTU slower on 2.x #16 - worked around an issue with jSerialComm where setting timeouts on an open port injected a 200ms delay
+
+## Version 2.1.1
+* Corrected a problem with applying the timeouts when using the facade pattern

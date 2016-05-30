@@ -15,10 +15,7 @@
  */
 package com.ghgande.j2mod.modbus;
 
-import com.ghgande.j2mod.modbus.msg.ReadCoilsResponse;
-import com.ghgande.j2mod.modbus.msg.ReadMultipleRegistersResponse;
-import com.ghgande.j2mod.modbus.msg.WriteCoilResponse;
-import com.ghgande.j2mod.modbus.msg.WriteSingleRegisterResponse;
+import com.ghgande.j2mod.modbus.msg.*;
 import com.ghgande.j2mod.modbus.utils.AbstractTestModbusTCPMaster;
 import org.junit.Test;
 
@@ -44,6 +41,26 @@ public class TestModbusTCPWrite extends AbstractTestModbusTCPMaster {
         assertEquals("Incorrect write status for register 1", 5555, res.getRegisterValue());
         ReadMultipleRegistersResponse res1 = (ReadMultipleRegistersResponse)readRequest(Modbus.READ_HOLDING_REGISTERS, 0, 1);
         assertEquals("Incorrect status for register 0", 5555, res1.getRegisterValue(0));
+    }
+
+    @Test
+    public void testWriteMultipleRegisters() {
+        WriteMultipleRegistersResponse res = (WriteMultipleRegistersResponse)writeRequest(Modbus.WRITE_MULTIPLE_REGISTERS, 40000, 5555, 6666, 7777);
+        assertEquals("Incorrect write status for register 40000 to 40002", 3, res.getWordCount());
+        ReadMultipleRegistersResponse res1 = (ReadMultipleRegistersResponse)readRequest(Modbus.READ_HOLDING_REGISTERS, 40000, 3);
+        assertEquals("Incorrect status for register 40000", 5555, res1.getRegisterValue(0));
+        assertEquals("Incorrect status for register 40001", 6666, res1.getRegisterValue(1));
+        assertEquals("Incorrect status for register 40002", 7777, res1.getRegisterValue(2));
+    }
+
+    @Test
+    public void testWriteMultipleCoils() {
+        WriteMultipleCoilsResponse res = (WriteMultipleCoilsResponse)writeRequest(Modbus.WRITE_MULTIPLE_COILS, 50000, 1, 0, 1);
+        assertEquals("Incorrect write status for coils 50000 to 50002", 3, res.getBitCount());
+        ReadCoilsResponse res1 = (ReadCoilsResponse)readRequest(Modbus.READ_COILS, 50000, 3);
+        assertEquals("Incorrect status for coil 50000", true, res1.getCoilStatus(0));
+        assertEquals("Incorrect status for coil 50001", false, res1.getCoilStatus(1));
+        assertEquals("Incorrect status for coil 50002", true, res1.getCoilStatus(2));
     }
 
 }

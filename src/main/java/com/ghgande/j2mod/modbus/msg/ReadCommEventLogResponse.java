@@ -158,9 +158,9 @@ public final class ReadCommEventLogResponse extends ModbusResponse {
      */
     public void readData(DataInput din) throws IOException {
         byteCount = din.readByte();
-        status = din.readShort();
-        eventCount = din.readShort();
-        messageCount = din.readShort();
+        status = din.readUnsignedShort();
+        eventCount = din.readUnsignedShort();
+        messageCount = din.readUnsignedShort();
 
         events = new byte[byteCount - 6];
 

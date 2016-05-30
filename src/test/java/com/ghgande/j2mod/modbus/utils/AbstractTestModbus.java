@@ -50,6 +50,10 @@ public class AbstractTestModbus {
         spi.addDigitalOut(new SimpleDigitalOut(true));
         spi.addDigitalOut(new SimpleDigitalOut(false));
 
+        spi.addDigitalOut(50000, new SimpleDigitalOut(false));
+        spi.addDigitalOut(50001, new SimpleDigitalOut(true));
+        spi.addDigitalOut(50002, new SimpleDigitalOut(false));
+
         // Now some discretes
         spi.addDigitalIn(new SimpleDigitalIn(false));
         spi.addDigitalIn(new SimpleDigitalIn(true));
@@ -100,6 +104,9 @@ public class AbstractTestModbus {
         spi.addRegister(new SimpleRegister(2222));
         spi.addRegister(new SimpleRegister(3333));
         spi.addRegister(new SimpleRegister(4444));
+        spi.addRegister(40000, new SimpleRegister(1234));
+        spi.addRegister(40001, new SimpleRegister(2345));
+        spi.addRegister(40002, new SimpleRegister(3456));
 
         // Some holding registers
         spi.addInputRegister(new SimpleInputRegister(45));

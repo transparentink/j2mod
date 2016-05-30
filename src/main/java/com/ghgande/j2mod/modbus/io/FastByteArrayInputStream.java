@@ -15,7 +15,6 @@
  */
 package com.ghgande.j2mod.modbus.io;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

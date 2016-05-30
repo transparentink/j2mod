@@ -143,7 +143,7 @@ public final class MaskWriteRegisterRequest extends ModbusRequest {
         MaskWriteRegisterResponse response;
 
         // Get the process image.
-        ProcessImage procimg = ModbusCoupler.getReference().getProcessImage();
+        ProcessImage procimg = ModbusCoupler.getReference().getProcessImage(getUnitID());
         try {
             Register register = procimg.getRegister(reference);
 
@@ -182,9 +182,9 @@ public final class MaskWriteRegisterRequest extends ModbusRequest {
      * readData -- dummy function.  There is no data with the request.
      */
     public void readData(DataInput din) throws IOException {
-        reference = din.readShort();
-        andMask = din.readShort();
-        orMask = din.readShort();
+        reference = din.readUnsignedShort();
+        andMask = din.readUnsignedShort();
+        orMask = din.readUnsignedShort();
     }
 
     /**

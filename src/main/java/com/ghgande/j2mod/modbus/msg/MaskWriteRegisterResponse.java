@@ -106,9 +106,9 @@ public final class MaskWriteRegisterResponse
      * already.
      */
     public void readData(DataInput din) throws IOException {
-        reference = din.readShort();
-        andMask = din.readShort();
-        orMask = din.readShort();
+        reference = din.readUnsignedShort();
+        andMask = din.readUnsignedShort();
+        orMask = din.readUnsignedShort();
     }
 
     /**

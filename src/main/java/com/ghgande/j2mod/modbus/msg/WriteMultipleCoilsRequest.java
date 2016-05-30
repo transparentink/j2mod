@@ -115,7 +115,7 @@ public final class WriteMultipleCoilsRequest extends ModbusRequest {
         DigitalOut douts[];
 
         // 1. get process image
-        ProcessImage procimg = ModbusCoupler.getReference().getProcessImage();
+        ProcessImage procimg = ModbusCoupler.getReference().getProcessImage(getUnitID());
         // 2. get coil range
         try {
             douts = procimg.getDigitalOutRange(reference, coils.size());
@@ -243,7 +243,7 @@ public final class WriteMultipleCoilsRequest extends ModbusRequest {
             data[k] = din.readByte();
         }
 
-        // decode bytes into BitCector, sets data and bitcount
+        // decode bytes into BitVector, sets data and bitcount
         coils = BitVector.createBitVector(data, bitcount);
 
         // update data length

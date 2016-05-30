@@ -104,7 +104,7 @@ public final class WriteMultipleRegistersRequest extends ModbusRequest {
         if (nonWordDataHandler == null) {
             Register[] regs;
             // 1. get process image
-            ProcessImage procimg = ModbusCoupler.getReference().getProcessImage();
+            ProcessImage procimg = ModbusCoupler.getReference().getProcessImage(getUnitID());
             // 2. get registers
             try {
                 regs = procimg.getRegisterRange(getReference(), getWordCount());
@@ -268,7 +268,7 @@ public final class WriteMultipleRegistersRequest extends ModbusRequest {
     }
 
     public void readData(DataInput input) throws IOException {
-        reference = input.readShort();
+        reference = input.readUnsignedShort();
         int registerCount = input.readUnsignedShort();
         int byteCount = input.readUnsignedByte();
 
