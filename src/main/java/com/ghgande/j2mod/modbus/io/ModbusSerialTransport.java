@@ -56,7 +56,7 @@ public abstract class ModbusSerialTransport extends AbstractModbusTransport {
     private final Set<AbstractSerialTransportListener> listeners = Collections.synchronizedSet(new HashSet<AbstractSerialTransportListener>());
 
     /**
-     * Cretes a new transaction suitable for the serial port
+     * Creates a new transaction suitable for the serial port
      *
      * @return SerialTransaction
      */
@@ -75,8 +75,22 @@ public abstract class ModbusSerialTransport extends AbstractModbusTransport {
      * @throws ModbusIOException if an error occurs
      */
     public void writeMessage(ModbusMessage msg) throws ModbusIOException {
+        open();
         notifyListenersBeforeWrite(msg);
         writeMessageOut(msg);
+
+        // Wait here for the message to have been sent
+
+        double bytesPerSec = commPort.getBaudRate() / (commPort.getNumDataBits() + commPort.getNumStopBits() + (commPort.getParity() == SerialPort.NO_PARITY ? 0 : 1));
+        double delay = 1000000000.0 * msg.getOutputLength() / bytesPerSec;
+        double delayMilliSeconds = Math.floor(delay / 1000000);
+        double delayNanoSeconds = delay % 1000000;
+        try {
+            Thread.sleep((int)delayMilliSeconds, (int)delayNanoSeconds);
+        }
+        catch (Exception e) {
+            logger.debug("nothing to do");
+        }
         notifyListenersAfterWrite(msg);
     }
 
@@ -90,8 +104,8 @@ public abstract class ModbusSerialTransport extends AbstractModbusTransport {
      * @throws ModbusIOException if an error occurs
      */
     public ModbusRequest readRequest() throws ModbusIOException {
+        open();
         notifyListenersBeforeRequest();
-        commPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, timeout, timeout);
         ModbusRequest req = readRequestIn();
         notifyListenersAfterRequest(req);
         return req;
@@ -107,10 +121,30 @@ public abstract class ModbusSerialTransport extends AbstractModbusTransport {
      */
     public ModbusResponse readResponse() throws ModbusIOException {
         notifyListenersBeforeResponse();
-        commPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, timeout, timeout);
         ModbusResponse res = readResponseIn();
         notifyListenersAfterResponse(res);
         return res;
+    }
+
+    /**
+     * Opens the port if it isn't alredy open
+     * @throws ModbusIOException
+     */
+    private void open() throws ModbusIOException {
+        if (commPort != null && !commPort.isOpen()) {
+            setTimeout(timeout);
+            if (!commPort.openPort()) {
+                throw new ModbusIOException(String.format("Cannot open port %s", commPort.getDescriptivePortName()));
+            }
+        }
+    }
+
+    @Override
+    public void setTimeout(int time) {
+        super.setTimeout(time);
+        if (commPort != null) {
+            commPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, timeout, 0);
+        }
     }
 
     /**
@@ -257,11 +291,7 @@ public abstract class ModbusSerialTransport extends AbstractModbusTransport {
      */
     public void setCommPort(SerialPort cp) throws IOException {
         commPort = cp;
-        if (cp != null) {
-            if (!commPort.openPort()) {
-                throw new IOException(String.format("Cannot open port %s", commPort.getDescriptivePortName()));
-            }
-        }
+        setTimeout(timeout);
     }
 
     /**
@@ -302,7 +332,6 @@ public abstract class ModbusSerialTransport extends AbstractModbusTransport {
      * @throws IOException if a I/O error occurred.
      */
     protected void readEcho(int len) throws IOException {
-
         byte echoBuf[] = new byte[len];
         int echoLen = commPort.readBytes(echoBuf, len);
         logger.debug("Echo: {}", ModbusUtil.toHex(echoBuf, 0, echoLen));
@@ -363,7 +392,7 @@ public abstract class ModbusSerialTransport extends AbstractModbusTransport {
      *
      * @return Number of bytes written
      */
-    public final int writeBytes(byte[] buffer, long bytesToWrite) throws IOException {
+    protected final int writeBytes(byte[] buffer, long bytesToWrite) throws IOException {
         if (commPort != null && commPort.isOpen()) {
             return commPort.writeBytes(buffer, bytesToWrite);
         }
@@ -394,14 +423,18 @@ public abstract class ModbusSerialTransport extends AbstractModbusTransport {
             else if (buffer[0] == ':') {
                 return ModbusASCIITransport.FRAME_START;
             }
-            else if (buffer[0] == '\r') {
+            else if (buffer[0] == '\r' || buffer[0] == '\n') {
                 return ModbusASCIITransport.FRAME_END;
             }
             else {
 <<<<<<< HEAD
+<<<<<<< HEAD
             	logger.info("Read From buffer: " + buffer[0] + " (" + String.format("%02X", buffer[0]) + ")");
 =======
             	logger.debug("Read From buffer: " + buffer[0] + " (" + String.format("%02X", buffer[0]) + ")");
+>>>>>>> refs/remotes/steveohara/development
+=======
+                logger.debug("Read From buffer: " + buffer[0] + " (" + String.format("%02X", buffer[0]) + ")");
 >>>>>>> refs/remotes/steveohara/development
                 byte firstValue = buffer[0];
                 cnt = commPort.readBytes(buffer, 1);
@@ -409,6 +442,7 @@ public abstract class ModbusSerialTransport extends AbstractModbusTransport {
                     throw new IOException("Cannot read from serial port");
                 }
                 else {
+<<<<<<< HEAD
 <<<<<<< HEAD
                 	logger.info("Read From buffer: " + buffer[0] + " (" + String.format("%02X", buffer[0]) + ")");
 
@@ -419,6 +453,10 @@ public abstract class ModbusSerialTransport extends AbstractModbusTransport {
 =======
                 	logger.debug("Read From buffer: " + buffer[0] + " (" + String.format("%02X", buffer[0]) + ")");
                 	int combinedValue = (Character.digit(firstValue, 16) << 4) + Character.digit(buffer[0], 16);
+=======
+                    logger.debug("Read From buffer: " + buffer[0] + " (" + String.format("%02X", buffer[0]) + ")");
+                    int combinedValue = (Character.digit(firstValue, 16) << 4) + Character.digit(buffer[0], 16);
+>>>>>>> refs/remotes/steveohara/development
                     logger.debug("Returning combined value of: " + String.format("%02X", combinedValue));
 >>>>>>> refs/remotes/steveohara/development
                     return combinedValue;
@@ -441,7 +479,7 @@ public abstract class ModbusSerialTransport extends AbstractModbusTransport {
      *
      * @throws IOException
      */
-    public final int writeAsciiByte(int value) throws IOException {
+    protected final int writeAsciiByte(int value) throws IOException {
         if (commPort != null && commPort.isOpen()) {
             byte[] buffer;
 
@@ -474,7 +512,7 @@ public abstract class ModbusSerialTransport extends AbstractModbusTransport {
      *
      * @throws IOException
      */
-    public int writeAsciiBytes(byte[] buffer, long bytesToWrite) throws IOException {
+    protected int writeAsciiBytes(byte[] buffer, long bytesToWrite) throws IOException {
         if (commPort != null && commPort.isOpen()) {
             int cnt = 0;
             for (int i = 0; i < bytesToWrite; i++) {

@@ -133,7 +133,7 @@ public final class ReadFIFOQueueRequest extends ModbusRequest {
      * readData -- read the reference word.
      */
     public void readData(DataInput din) throws IOException {
-        reference = din.readShort();
+        reference = din.readUnsignedShort();
     }
 
     /**

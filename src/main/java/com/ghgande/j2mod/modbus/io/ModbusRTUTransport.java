@@ -413,9 +413,7 @@ public class ModbusRTUTransport extends ModbusSerialTransport {
             return response;
         }
         catch (IOException ex) {
-            logger.error("Last request: {}", ModbusUtil.toHex(lastRequest));
-            logger.error(ex.getMessage());
-            throw new ModbusIOException("I/O exception - failed to read");
+            throw new ModbusIOException("I/O exception - failed to read response for request [%s] - %s", ModbusUtil.toHex(lastRequest), ex.getMessage());
         }
     }
 }

@@ -92,8 +92,8 @@ public final class ReadCommEventCounterResponse extends ModbusResponse {
      * such as for Modbus/TCP, it will have been read already.
      */
     public void readData(DataInput din) throws IOException {
-        status = din.readShort();
-        events = din.readShort();
+        status = din.readUnsignedShort();
+        events = din.readUnsignedShort();
     }
 
     /**

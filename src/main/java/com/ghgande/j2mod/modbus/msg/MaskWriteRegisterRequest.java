@@ -186,9 +186,9 @@ public final class MaskWriteRegisterRequest extends ModbusRequest {
      * readData -- dummy function.  There is no data with the request.
      */
     public void readData(DataInput din) throws IOException {
-        reference = din.readShort();
-        andMask = din.readShort();
-        orMask = din.readShort();
+        reference = din.readUnsignedShort();
+        andMask = din.readUnsignedShort();
+        orMask = din.readUnsignedShort();
     }
 
     /**

@@ -88,13 +88,13 @@ public class ReadInputRegistersWithCallbackTest {
                 }
 
                 if (transport instanceof ModbusSerialTransport) {
-                    transport.setTimeout(1000);
+                    transport.setTimeout(500);
                     ((ModbusSerialTransport)transport).addListener(new EventListener());
                     if (System.getProperty("com.ghgande.j2mod.modbus.baud") != null) {
                         ((ModbusSerialTransport)transport).setBaudRate(Integer.parseInt(System.getProperty("com.ghgande.j2mod.modbus.baud")));
                     }
                     else {
-                        ((ModbusSerialTransport)transport).setBaudRate(115200);
+                        ((ModbusSerialTransport)transport).setBaudRate(9600);
                     }
                 }
 
@@ -142,13 +142,14 @@ public class ReadInputRegistersWithCallbackTest {
             trans.setRequest(req);
             req.setHeadless(trans instanceof ModbusSerialTransaction);
 
-            System.out.printf("Request is: %s", req.getHexMessage());
+            System.out.printf("Request is: %s\n", req.getHexMessage());
 
             // 5. Execute the transaction repeat times
 
             for (int i = 0; i < repeat; i++) {
                 try {
                     trans.execute();
+//                    Thread.sleep(200);
                 }
                 catch (ModbusException x) {
                     System.out.printf(x.getMessage());
@@ -159,14 +160,14 @@ public class ReadInputRegistersWithCallbackTest {
                     System.out.printf("No response to READ HOLDING request");
                 }
                 else {
-                    System.out.printf("Response: %s", res.getHexMessage());
+                    System.out.printf("Response: %s ", res.getHexMessage());
                     if (res instanceof ExceptionResponse) {
                         ExceptionResponse exception = (ExceptionResponse)res;
                         System.out.printf(exception.toString());
                     }
                     else if (res instanceof ReadInputRegistersResponse) {
                         ReadInputRegistersResponse data = (ReadInputRegistersResponse)res;
-                        System.out.printf("Data: %3.1f", data.getRegister(0).toShort() / 10.0);
+                        System.out.printf("Data: %3.1f\n", data.getRegister(0).toShort() / 10.0);
                     }
                 }
             }
@@ -195,10 +196,16 @@ public class ReadInputRegistersWithCallbackTest {
 
         @Override
         public void afterMessageWrite(SerialPort port, ModbusMessage msg) {
-            double bytesPerSec = port.getBaudRate() / (port.getNumDataBits() + port.getNumStopBits() + (port.getParity() == SerialPort.NO_PARITY ? 0 : 1));
-            double delayMicroSeconds = 1000000 * 1.3 * msg.getOutputLength() / bytesPerSec;
-            Gpio.delayMicroseconds((int)delayMicroSeconds);
             Gpio.digitalWrite(RTS_PIN, false);
+
+            // Slug the response so that we don't overwhelm the temp sensor
+
+            try {
+                Thread.sleep(50);
+            }
+            catch (Exception e) {
+                logger.debug("nothing to do");
+            }
         }
     }
 }

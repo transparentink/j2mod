@@ -282,6 +282,7 @@ public final class BitVector {
         	
 =======
 
+<<<<<<< HEAD
 >>>>>>> refs/remotes/steveohara/development
         	int numberOfBitsToPrint = Byte.SIZE;
         	int remainingBits = size - (i * Byte.SIZE);
@@ -291,6 +292,13 @@ public final class BitVector {
 <<<<<<< HEAD
         	
 =======
+=======
+            int numberOfBitsToPrint = Byte.SIZE;
+            int remainingBits = size - (i * Byte.SIZE);
+            if (remainingBits < Byte.SIZE) {
+                numberOfBitsToPrint = remainingBits;
+            }
+>>>>>>> refs/remotes/steveohara/development
 
 >>>>>>> refs/remotes/steveohara/development
             sbuf.append(String.format("%" + numberOfBitsToPrint + "s", Integer.toBinaryString(data[i] & 0xFF)).replace(' ', '0'));

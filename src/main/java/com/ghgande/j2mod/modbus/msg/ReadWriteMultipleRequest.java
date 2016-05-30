@@ -333,9 +333,9 @@ public final class ReadWriteMultipleRequest extends ModbusRequest {
      * the reference and count for the registers to be read.
      */
     public void readData(DataInput input) throws IOException {
-        readReference = input.readShort();
-        readCount = input.readShort();
-        writeReference = input.readShort();
+        readReference = input.readUnsignedShort();
+        readCount = input.readUnsignedShort();
+        writeReference = input.readUnsignedShort();
         writeCount = input.readUnsignedShort();
         int byteCount = input.readUnsignedByte();
 
