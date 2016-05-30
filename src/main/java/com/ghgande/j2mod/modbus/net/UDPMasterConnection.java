@@ -75,7 +75,11 @@ public class UDPMasterConnection {
                 terminal.deactivate();
             }
             catch (Exception ex) {
+<<<<<<< HEAD
                 logger.debug(ex.getMessage());
+=======
+                logger.debug("Exception occurred while closing UDPMasterConnection", ex);
+>>>>>>> refs/remotes/steveohara/development
             }
             connected = false;
         }

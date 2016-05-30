@@ -104,7 +104,11 @@ public final class WriteMultipleRegistersRequest extends ModbusRequest {
         if (nonWordDataHandler == null) {
             Register[] regs;
             // 1. get process image
+<<<<<<< HEAD
             ProcessImage procimg = ModbusCoupler.getReference().getProcessImage();
+=======
+            ProcessImage procimg = ModbusCoupler.getReference().getProcessImage(getUnitID());
+>>>>>>> refs/remotes/steveohara/development
             // 2. get registers
             try {
                 regs = procimg.getRegisterRange(getReference(), getWordCount());

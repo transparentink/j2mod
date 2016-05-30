@@ -15,6 +15,7 @@
  */
 package com.ghgande.j2mod.modbus.net;
 
+<<<<<<< HEAD
 import com.ghgande.j2mod.modbus.Modbus;
 import com.ghgande.j2mod.modbus.ModbusCoupler;
 import com.ghgande.j2mod.modbus.ModbusIOException;
@@ -22,6 +23,10 @@ import com.ghgande.j2mod.modbus.io.AbstractModbusTransport;
 import com.ghgande.j2mod.modbus.msg.ModbusRequest;
 import com.ghgande.j2mod.modbus.msg.ModbusResponse;
 import com.ghgande.j2mod.modbus.procimg.ProcessImage;
+=======
+import com.ghgande.j2mod.modbus.ModbusIOException;
+import com.ghgande.j2mod.modbus.io.AbstractModbusTransport;
+>>>>>>> refs/remotes/steveohara/development
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,6 +69,7 @@ public class TCPConnectionHandler implements Runnable {
         transport = connection.getModbusTransport();
     }
 
+<<<<<<< HEAD
     public void run() {
         try {
             do {
@@ -86,6 +92,14 @@ public class TCPConnectionHandler implements Runnable {
                 // Write the response message.
                 transport.writeMessage(response);
             } while (true);
+=======
+    @Override
+    public void run() {
+        try {
+            do {
+                AbstractModbusListener.handleRequest(transport);
+            } while (!Thread.currentThread().isInterrupted());
+>>>>>>> refs/remotes/steveohara/development
         }
         catch (ModbusIOException ex) {
             if (!ex.isEOF()) {
@@ -93,12 +107,16 @@ public class TCPConnectionHandler implements Runnable {
             }
         }
         finally {
+<<<<<<< HEAD
             try {
                 connection.close();
             }
             catch (Exception ex) {
                 // ignore
             }
+=======
+            connection.close();
+>>>>>>> refs/remotes/steveohara/development
         }
     }
 }

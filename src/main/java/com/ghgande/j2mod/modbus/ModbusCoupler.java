@@ -21,6 +21,12 @@ import com.ghgande.j2mod.modbus.procimg.ProcessImageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+<<<<<<< HEAD
+=======
+import java.util.HashMap;
+import java.util.Map;
+
+>>>>>>> refs/remotes/steveohara/development
 /**
  * Class implemented following a Singleton pattern, to couple the slave side
  * with a master side or with a device.
@@ -41,8 +47,12 @@ public class ModbusCoupler {
     private static ModbusCoupler modbusCoupler; // Singleton reference
 
     // instance attributes
+<<<<<<< HEAD
     private ProcessImage processImage;
     private int unitID = Modbus.DEFAULT_UNIT_ID;
+=======
+    private Map<Integer, ProcessImage> processImages = new HashMap<Integer, ProcessImage>();
+>>>>>>> refs/remotes/steveohara/development
     private boolean master = true;
     private ProcessImageFactory processImageFactory;
 
@@ -88,6 +98,7 @@ public class ModbusCoupler {
     }
 
     /**
+<<<<<<< HEAD
      * Returns a reference to the <tt>ProcessImage</tt> of this
      * <tt>ModbusCoupler</tt>.
      *
@@ -100,11 +111,30 @@ public class ModbusCoupler {
     /**
      * Sets the reference to the <tt>ProcessImage</tt> of this
      * <tt>ModbusCoupler</tt>.
+=======
+     * Returns a reference to the <tt>ProcessImage</tt> by <tt>unitID</tt> of this
+     * <tt>ModbusCoupler</tt>.
+     *
+     * @param unitID the <tt>unitID</tt> of the <tt>ProcessImage</tt> to fetch.
+     * @return the <tt>ProcessImage</tt>.
+     */
+    public synchronized ProcessImage getProcessImage(int unitID) {
+        return processImages.get(unitID);
+    }
+
+    /**
+     * Sets the reference to the <tt>ProcessImage</tt> by the <tt>unitID</tt>
+     * specified in the <tt>ProcessImage</tt> of this <tt>ModbusCoupler</tt>.
+>>>>>>> refs/remotes/steveohara/development
      *
      * @param procimg the <tt>ProcessImage</tt> to be set.
      */
     public synchronized void setProcessImage(ProcessImage procimg) {
+<<<<<<< HEAD
         processImage = procimg;
+=======
+        processImages.put(procimg.getUnitID(), procimg);
+>>>>>>> refs/remotes/steveohara/development
     }
 
     /**

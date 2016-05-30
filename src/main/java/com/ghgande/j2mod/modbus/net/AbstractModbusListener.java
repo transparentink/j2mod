@@ -125,7 +125,11 @@ public abstract class AbstractModbusListener implements Runnable {
      * @param transport Transport to read request from
      * @throws ModbusIOException
      */
+<<<<<<< HEAD
     protected void handleRequest(AbstractModbusTransport transport) throws ModbusIOException {
+=======
+    protected static void handleRequest(AbstractModbusTransport transport) throws ModbusIOException {
+>>>>>>> refs/remotes/steveohara/development
 
         // Get the request from the transport. It will be processed
         // using an associated process image.
@@ -133,7 +137,11 @@ public abstract class AbstractModbusListener implements Runnable {
         ModbusResponse response;
 
         // Test if Process image exists and has a correct unit ID
+<<<<<<< HEAD
         ProcessImage spi = ModbusCoupler.getReference().getProcessImage();
+=======
+        ProcessImage spi = ModbusCoupler.getReference().getProcessImage(request.getUnitID());
+>>>>>>> refs/remotes/steveohara/development
         if (spi == null ||
             (spi.getUnitID() != 0 && request.getUnitID() != spi.getUnitID())) {
             response = request.createExceptionResponse(Modbus.ILLEGAL_ADDRESS_EXCEPTION);

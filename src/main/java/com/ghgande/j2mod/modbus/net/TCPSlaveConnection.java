@@ -55,7 +55,11 @@ public class TCPSlaveConnection {
         catch (IOException ex) {
             logger.debug("TCPSlaveConnection::Socket invalid");
 
+<<<<<<< HEAD
             throw new IllegalStateException("Socket invalid");
+=======
+            throw new IllegalStateException("Socket invalid", ex);
+>>>>>>> refs/remotes/steveohara/development
         }
     }
 
@@ -69,7 +73,11 @@ public class TCPSlaveConnection {
                 socket.close();
             }
             catch (IOException ex) {
+<<<<<<< HEAD
                 logger.debug(ex.getMessage());
+=======
+                logger.warn("Could not close socket", ex);
+>>>>>>> refs/remotes/steveohara/development
             }
             connected = false;
         }
@@ -127,7 +135,11 @@ public class TCPSlaveConnection {
             socket.setSoTimeout(timeout);
         }
         catch (IOException ex) {
+<<<<<<< HEAD
             // handle?
+=======
+            logger.warn("Could not set timeout to " + timeout, ex);
+>>>>>>> refs/remotes/steveohara/development
         }
     }
 

@@ -210,7 +210,11 @@ public class TCPMasterConnection {
             }
         }
         catch (IOException ex) {
+<<<<<<< HEAD
             // Do nothing.
+=======
+            logger.warn("Could not set timeout to value " + timeout, ex);
+>>>>>>> refs/remotes/steveohara/development
         }
     }
 

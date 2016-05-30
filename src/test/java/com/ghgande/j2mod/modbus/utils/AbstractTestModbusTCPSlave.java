@@ -21,6 +21,11 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+<<<<<<< HEAD
+=======
+import java.io.File;
+
+>>>>>>> refs/remotes/steveohara/development
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
@@ -35,12 +40,20 @@ public class AbstractTestModbusTCPSlave extends AbstractTestModbusTCPMaster {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractTestModbusTCPSlave.class);
     private static AbstractModbusListener listener = null;
+<<<<<<< HEAD
+=======
+    private static File modPollTool;
+>>>>>>> refs/remotes/steveohara/development
 
     @BeforeClass
     public static void setUpSlave() {
         assumeTrue("This platform does not support modpoll so the result of this test will be ignored", TestUtils.platformSupportsModPoll());
         try {
+<<<<<<< HEAD
             TestUtils.loadModPollTool();
+=======
+            modPollTool = TestUtils.loadModPollTool();
+>>>>>>> refs/remotes/steveohara/development
             listener = createTCPSlave();
         }
         catch (Exception e) {
@@ -111,8 +124,13 @@ public class AbstractTestModbusTCPSlave extends AbstractTestModbusTCPMaster {
      */
     private static boolean execModPoll(int register, int type, Integer outValue, String expectedOutput, int numberOfRegisters) {
         try {
+<<<<<<< HEAD
             String output = TestUtils.execToString(String.format("%smodpoll -m tcp -p 1502 -a %d -r %d -t %d -c %d -1 %s %s",
                     TestUtils.getTemporaryDirectory(), UNIT_ID, register, type, numberOfRegisters,
+=======
+            String output = TestUtils.execToString(String.format("%s -m tcp -p 1502 -a %d -r %d -t %d -c %d -1 %s %s",
+                    modPollTool.toString(), UNIT_ID, register, type, numberOfRegisters,
+>>>>>>> refs/remotes/steveohara/development
                     LOCALHOST, outValue == null ? "" : outValue));
             boolean returnValue = output != null && output.replaceAll("[\r]", "").contains(expectedOutput);
             if (!returnValue) {

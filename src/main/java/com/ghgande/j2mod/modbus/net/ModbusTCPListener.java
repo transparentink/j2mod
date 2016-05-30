@@ -81,7 +81,11 @@ public class ModbusTCPListener extends AbstractModbusListener {
                 serverSocket.setSoTimeout(timeout);
             }
             catch (SocketException e) {
+<<<<<<< HEAD
                 logger.error("Cannot set socket timeout - {}", e.getMessage());
+=======
+                logger.error("Cannot set socket timeout", e);
+>>>>>>> refs/remotes/steveohara/development
             }
         }
     }
@@ -147,7 +151,11 @@ public class ModbusTCPListener extends AbstractModbusListener {
             }
         }
         catch (Exception ex) {
+<<<<<<< HEAD
             logger.error(ex.getMessage());
+=======
+            logger.error("Error while stopping ModbusTCPListener", ex);
+>>>>>>> refs/remotes/steveohara/development
         }
     }
 

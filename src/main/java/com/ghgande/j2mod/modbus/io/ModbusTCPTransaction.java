@@ -120,7 +120,11 @@ public class ModbusTCPTransaction extends ModbusTransaction {
                 transport = connection.getModbusTransport();
             }
             catch (Exception ex) {
+<<<<<<< HEAD
                 throw new ModbusIOException("Connection failed");
+=======
+                throw new ModbusIOException("Connection failed", ex);
+>>>>>>> refs/remotes/steveohara/development
             }
         }
 
@@ -161,12 +165,20 @@ public class ModbusTCPTransaction extends ModbusTransaction {
                     }
                     catch (Exception e) {
                         // Nope, fail this transaction.
+<<<<<<< HEAD
                         throw new ModbusIOException("Connection lost");
+=======
+                        throw new ModbusIOException("Connection lost", e);
+>>>>>>> refs/remotes/steveohara/development
                     }
                 }
                 retryCounter++;
                 if (retryCounter >= retryLimit) {
+<<<<<<< HEAD
                     throw new ModbusIOException("Executing transaction failed (tried %d times) - %s", retries, ex.getMessage());
+=======
+                    throw new ModbusIOException("Executing transaction failed (tried " + retries + " times)", ex);
+>>>>>>> refs/remotes/steveohara/development
                 }
             }
         }

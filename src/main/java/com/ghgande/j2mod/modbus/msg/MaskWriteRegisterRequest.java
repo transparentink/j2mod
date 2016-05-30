@@ -143,7 +143,11 @@ public final class MaskWriteRegisterRequest extends ModbusRequest {
         MaskWriteRegisterResponse response;
 
         // Get the process image.
+<<<<<<< HEAD
         ProcessImage procimg = ModbusCoupler.getReference().getProcessImage();
+=======
+        ProcessImage procimg = ModbusCoupler.getReference().getProcessImage(getUnitID());
+>>>>>>> refs/remotes/steveohara/development
         try {
             Register register = procimg.getRegister(reference);
 

@@ -30,4 +30,16 @@
 * Serial timeouts were being applied to a null transport
 
 ## Version 2.0
+<<<<<<< HEAD
 * Replaced log4j with slf4j
+=======
+* Replaced log4j with slf4j
+
+## Version 2.1
+* Corrections to ASCII transport - thanks transparentink
+* Added fix for infinite listening loop - thanks martentamerius
+* Removed duplicate request handling code
+* Fix unit tests on linux #9 - thanks martentamerius
+* Improved logging of errors and warnings with stack trace #10 - thanks martentamerius
+* Facilitate multiple processimages in ModbusCoupler. #11 - thanks martentamerius
+>>>>>>> refs/remotes/steveohara/development
