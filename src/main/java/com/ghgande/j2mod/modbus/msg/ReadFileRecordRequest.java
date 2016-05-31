@@ -136,7 +136,15 @@ public final class ReadFileRecordRequest extends ModbusRequest {
         response = (ReadFileRecordResponse)getResponse();
 
         // Get the process image.
+<<<<<<< HEAD
         ProcessImage procimg = ModbusCoupler.getReference().getProcessImage(getUnitID());
+=======
+<<<<<<< HEAD
+        ProcessImage procimg = ModbusCoupler.getReference().getProcessImage();
+=======
+        ProcessImage procimg = ModbusCoupler.getReference().getProcessImage(getUnitID());
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
 
         // There is a list of requests to be resolved.
         try {

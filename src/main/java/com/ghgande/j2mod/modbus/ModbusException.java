@@ -48,16 +48,37 @@ public class ModbusException extends Exception {
     }
 
     /**
+<<<<<<< HEAD
      * Constructs a new <tt>ModbusException</tt> instance with the given
      * message.
      * <p>
      *
      * @param message the message describing this <tt>ModbusException</tt>.
+=======
+<<<<<<< HEAD
+     * Constructs a new <tt>ModbusIOException</tt> instance with the given
+     * message.
+     * <p>
+     *
+     * @param message the message describing this <tt>ModbusIOException</tt>.
+=======
+     * Constructs a new <tt>ModbusException</tt> instance with the given
+     * message.
+     * <p>
+     *
+     * @param message the message describing this <tt>ModbusException</tt>.
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
      */
     public ModbusException(String message, Object... values) {
         super(String.format(message, values));
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
     /**
      * Constructs a new <tt>ModbusException</tt> instance with the given
      * message and underlying cause.
@@ -70,4 +91,8 @@ public class ModbusException extends Exception {
     public ModbusException(String message, Throwable cause) {
         super(message, cause);
     }
+<<<<<<< HEAD
+=======
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
 }

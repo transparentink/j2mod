@@ -137,7 +137,15 @@ public final class WriteFileRecordRequest extends ModbusRequest {
         response = (WriteFileRecordResponse)getResponse();
 
         // Get the process image.
+<<<<<<< HEAD
         ProcessImage procimg = ModbusCoupler.getReference().getProcessImage(getUnitID());
+=======
+<<<<<<< HEAD
+        ProcessImage procimg = ModbusCoupler.getReference().getProcessImage();
+=======
+        ProcessImage procimg = ModbusCoupler.getReference().getProcessImage(getUnitID());
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
 
         // There is a list of requests to be resolved.
         try {

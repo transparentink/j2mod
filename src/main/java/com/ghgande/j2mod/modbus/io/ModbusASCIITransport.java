@@ -64,7 +64,10 @@ public class ModbusASCIITransport extends ModbusSerialTransport {
                 //write message
                 writeAsciiByte(FRAME_START);               //FRAMESTART
                 writeAsciiBytes(buf, len);                 //PDU
+<<<<<<< HEAD
+=======
                 logger.debug("Writing: {}", ModbusUtil.toHex(buf, 0, len));
+>>>>>>> refs/remotes/steveohara/development
                 writeAsciiByte(calculateLRC(buf, 0, len)); //LRC
                 writeAsciiByte(FRAME_END);                 //FRAMEEND
                 byteOutputStream.reset();
@@ -109,6 +112,28 @@ public class ModbusASCIITransport extends ModbusSerialTransport {
                         continue;
                     }
                     byteInputStream.reset(inBuffer, byteInputOutputStream.size());
+<<<<<<< HEAD
+                    int unitID = byteInputStream.readUnsignedByte();
+=======
+<<<<<<< HEAD
+                    in = byteInputStream.readUnsignedByte();
+>>>>>>> origin/master
+
+                    //check message with this slave unit identifier
+                    ProcessImage spi = ModbusCoupler.getReference().getProcessImage(unitID);
+                    if (spi == null) {
+                        continue;
+                    }
+                    if (unitID != spi.getUnitID()) {
+                        continue;
+                    }
+                    int functionCode = byteInputStream.readUnsignedByte();
+                    //create request
+<<<<<<< HEAD
+                    request = ModbusRequest.createModbusRequest(functionCode);
+=======
+                    request = ModbusRequest.createModbusRequest(in);
+=======
                     int unitID = byteInputStream.readUnsignedByte();
 
                     //check message with this slave unit identifier
@@ -122,6 +147,8 @@ public class ModbusASCIITransport extends ModbusSerialTransport {
                     int functionCode = byteInputStream.readUnsignedByte();
                     //create request
                     request = ModbusRequest.createModbusRequest(functionCode);
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
                     request.setHeadless();
                     //read message
                     byteInputStream.reset(inBuffer, byteInputOutputStream.size());
@@ -164,6 +191,10 @@ public class ModbusASCIITransport extends ModbusSerialTransport {
                     int len = byteInputOutputStream.size();
                     logger.debug("Received: {}", ModbusUtil.toHex(inBuffer, 0, len));
                     //check LRC
+<<<<<<< HEAD
+              
+=======
+>>>>>>> refs/remotes/steveohara/development
                     if (inBuffer[len - 1] != calculateLRC(inBuffer, 0, len, 1)) {
                         continue;
                     }

@@ -79,7 +79,15 @@ public class ModbusTCPMaster extends AbstractModbusMaster {
             setReconnecting(reconnect);
         }
         catch (UnknownHostException e) {
+<<<<<<< HEAD
             throw new RuntimeException("Failed to contruct ModbusTCPMaster instance.", e);
+=======
+<<<<<<< HEAD
+            throw new RuntimeException(e.getMessage());
+=======
+            throw new RuntimeException("Failed to contruct ModbusTCPMaster instance.", e);
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
         }
     }
 

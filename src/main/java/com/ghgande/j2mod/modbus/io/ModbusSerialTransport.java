@@ -413,26 +413,62 @@ public abstract class ModbusSerialTransport extends AbstractModbusTransport {
         if (commPort != null && commPort.isOpen()) {
             byte[] buffer = new byte[1];
             int cnt = commPort.readBytes(buffer, 1);
+<<<<<<< HEAD
+
+=======
+>>>>>>> refs/remotes/steveohara/development
             if (cnt != 1) {
                 throw new IOException("Cannot read from serial port");
             }
             else if (buffer[0] == ':') {
                 return ModbusASCIITransport.FRAME_START;
             }
-            else if (buffer[0] == '\r') {
+            else if (buffer[0] == '\r' || buffer[0] == '\n') {
                 return ModbusASCIITransport.FRAME_END;
             }
             else {
+<<<<<<< HEAD
                 logger.debug("Read From buffer: " + buffer[0] + " (" + String.format("%02X", buffer[0]) + ")");
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+            	logger.info("Read From buffer: " + buffer[0] + " (" + String.format("%02X", buffer[0]) + ")");
+=======
+            	logger.debug("Read From buffer: " + buffer[0] + " (" + String.format("%02X", buffer[0]) + ")");
+>>>>>>> refs/remotes/steveohara/development
+=======
+                logger.debug("Read From buffer: " + buffer[0] + " (" + String.format("%02X", buffer[0]) + ")");
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
                 byte firstValue = buffer[0];
                 cnt = commPort.readBytes(buffer, 1);
                 if (cnt != 1) {
                     throw new IOException("Cannot read from serial port");
                 }
                 else {
+<<<<<<< HEAD
                     logger.debug("Read From buffer: " + buffer[0] + " (" + String.format("%02X", buffer[0]) + ")");
                     int combinedValue = (Character.digit(firstValue, 16) << 4) + Character.digit(buffer[0], 16);
                     logger.debug("Returning combined value of: " + String.format("%02X", combinedValue));
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+                	logger.info("Read From buffer: " + buffer[0] + " (" + String.format("%02X", buffer[0]) + ")");
+
+                	int combinedValue = (Character.digit(firstValue, 16) << 4) + Character.digit(buffer[0], 16);
+                	
+                	logger.info("Returning combined value of: " + String.format("%02X", combinedValue));
+                	
+=======
+                	logger.debug("Read From buffer: " + buffer[0] + " (" + String.format("%02X", buffer[0]) + ")");
+                	int combinedValue = (Character.digit(firstValue, 16) << 4) + Character.digit(buffer[0], 16);
+=======
+                    logger.debug("Read From buffer: " + buffer[0] + " (" + String.format("%02X", buffer[0]) + ")");
+                    int combinedValue = (Character.digit(firstValue, 16) << 4) + Character.digit(buffer[0], 16);
+>>>>>>> refs/remotes/steveohara/development
+                    logger.debug("Returning combined value of: " + String.format("%02X", combinedValue));
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
                     return combinedValue;
                 }
             }

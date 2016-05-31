@@ -78,7 +78,15 @@ public class ModbusUDPMaster extends AbstractModbusMaster {
             connection.setTimeout(timeout);
         }
         catch (UnknownHostException e) {
+<<<<<<< HEAD
             throw new RuntimeException("Failed to construct ModbusUDPMaster instance.", e);
+=======
+<<<<<<< HEAD
+            throw new RuntimeException(e.getMessage());
+=======
+            throw new RuntimeException("Failed to construct ModbusUDPMaster instance.", e);
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
         }
     }
 

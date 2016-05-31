@@ -89,7 +89,15 @@ public final class ReadInputRegistersRequest extends ModbusRequest {
         InputRegister[] inpregs;
 
         // 1. get process image
+<<<<<<< HEAD
         ProcessImage procimg = ModbusCoupler.getReference().getProcessImage(getUnitID());
+=======
+<<<<<<< HEAD
+        ProcessImage procimg = ModbusCoupler.getReference().getProcessImage();
+=======
+        ProcessImage procimg = ModbusCoupler.getReference().getProcessImage(getUnitID());
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
         // 2. get input registers range
         try {
             inpregs = procimg.getInputRegisterRange(getReference(), getWordCount());

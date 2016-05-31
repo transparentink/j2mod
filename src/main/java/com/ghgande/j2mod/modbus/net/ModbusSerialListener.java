@@ -89,7 +89,15 @@ public class ModbusSerialListener extends AbstractModbusListener {
             }
         }
         catch (Exception e) {
+<<<<<<< HEAD
             logger.error("Exception occurred while handling request.", e);
+=======
+<<<<<<< HEAD
+            e.printStackTrace();
+=======
+            logger.error("Exception occurred while handling request.", e);
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
         }
         finally {
             listening = false;

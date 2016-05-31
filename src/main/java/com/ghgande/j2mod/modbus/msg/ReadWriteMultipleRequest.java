@@ -115,7 +115,15 @@ public final class ReadWriteMultipleRequest extends ModbusRequest {
         Register[] writeRegs;
 
         // 1. get process image
+<<<<<<< HEAD
         ProcessImage procimg = ModbusCoupler.getReference().getProcessImage(getUnitID());
+=======
+<<<<<<< HEAD
+        ProcessImage procimg = ModbusCoupler.getReference().getProcessImage();
+=======
+        ProcessImage procimg = ModbusCoupler.getReference().getProcessImage(getUnitID());
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
         // 2. get input registers range
         try {
             readRegs = procimg.getRegisterRange(getReadReference(), getReadWordCount());

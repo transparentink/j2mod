@@ -96,7 +96,15 @@ public final class ReadFIFOQueueRequest extends ModbusRequest {
         InputRegister[] registers;
 
         // Get the process image.
+<<<<<<< HEAD
         ProcessImage procimg = ModbusCoupler.getReference().getProcessImage(getUnitID());
+=======
+<<<<<<< HEAD
+        ProcessImage procimg = ModbusCoupler.getReference().getProcessImage();
+=======
+        ProcessImage procimg = ModbusCoupler.getReference().getProcessImage(getUnitID());
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
 
         try {
             // Get the FIFO queue location and read the count of available

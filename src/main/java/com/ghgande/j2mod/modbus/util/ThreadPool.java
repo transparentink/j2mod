@@ -116,7 +116,15 @@ public class ThreadPool {
                 }
                 catch (Exception ex) {
                     if (running) {
+<<<<<<< HEAD
                         logger.error("Problem starting receiver thread", ex);
+=======
+<<<<<<< HEAD
+                        logger.error("Problem starting receiver thread - {}", ex.getMessage());
+=======
+                        logger.error("Problem starting receiver thread", ex);
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
                     }
                 }
             } while (running);

@@ -82,6 +82,11 @@ public class ModbusIOException extends ModbusException {
     }
 
     /**
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
      * Constructs a new <tt>ModbusIOException</tt> instance with the given
      * message and underlying cause.
      * <p>
@@ -95,6 +100,10 @@ public class ModbusIOException extends ModbusException {
     }
 
     /**
+<<<<<<< HEAD
+=======
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
      * Tests if this <tt>ModbusIOException</tt> is caused by an end of the
      * stream.
      * <p>

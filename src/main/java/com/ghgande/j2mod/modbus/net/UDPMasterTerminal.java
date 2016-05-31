@@ -79,7 +79,15 @@ class UDPMasterTerminal extends AbstractUDPTerminal {
             active = false;
         }
         catch (Exception ex) {
+<<<<<<< HEAD
             logger.error("Error closing socket", ex);
+=======
+<<<<<<< HEAD
+            ex.printStackTrace();
+=======
+            logger.error("Error closing socket", ex);
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
         }
     }
 

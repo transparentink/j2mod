@@ -89,7 +89,15 @@ public class ModbusUDPTransport extends AbstractModbusTransport {
             }
         }
         catch (Exception ex) {
+<<<<<<< HEAD
             throw new ModbusIOException("I/O exception - failed to write", ex);
+=======
+<<<<<<< HEAD
+            throw new ModbusIOException("I/O exception - failed to write - %s", ex.getMessage());
+=======
+            throw new ModbusIOException("I/O exception - failed to write", ex);
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
         }
     }
 
@@ -108,7 +116,15 @@ public class ModbusUDPTransport extends AbstractModbusTransport {
             return req;
         }
         catch (Exception ex) {
+<<<<<<< HEAD
             throw new ModbusIOException("I/O exception - failed to read", ex);
+=======
+<<<<<<< HEAD
+            throw new ModbusIOException("I/O exception - failed to read - %s", ex.getMessage());
+=======
+            throw new ModbusIOException("I/O exception - failed to read", ex);
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
         }
     }
 
@@ -128,10 +144,24 @@ public class ModbusUDPTransport extends AbstractModbusTransport {
             return res;
         }
         catch (InterruptedIOException ioex) {
+<<<<<<< HEAD
             throw new ModbusIOException("Socket was interrupted", ioex);
         }
         catch (Exception ex) {
             logger.debug("I/O exception while reading modbus response.", ex);
+=======
+<<<<<<< HEAD
+            throw new ModbusIOException("Socket was interrupted - %s", ioex.getMessage());
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+=======
+            throw new ModbusIOException("Socket was interrupted", ioex);
+        }
+        catch (Exception ex) {
+            logger.debug("I/O exception while reading modbus response.", ex);
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
             throw new ModbusIOException("I/O exception - failed to read - %s", ex.getMessage());
         }
     }

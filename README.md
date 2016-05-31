@@ -5,11 +5,24 @@ j2mod has been actively maintained by [Julie Haugh](https://sourceforge.net/u/jf
 absolutely sterling work in trying to iron out the myriad of wrinkles in this piece of work. It's about time she had some help so this 
 project will endeavour to bring more collaboration and expertise to the fray.
 
+<<<<<<< HEAD
 The main driver for doing this work is to get away from the RxTxComm library and to use something that brings it's own native implementations and is actively supported.
+=======
+<<<<<<< HEAD
+The main driver for doing this work is to get away from the RxTxComm library and to use something that brings it's own native implementations that is actively supported.
+=======
+The main driver for doing this work is to get away from the RxTxComm library and to use something that brings it's own native implementations and is actively supported.
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
 
 The weapon of choice is the [jSerialComm](http://fazecast.github.io/jSerialComm/) library which is extremely well supported by Will Hedgecock and is actively developed.
 
 The other goal of this project is to bring the codebase into line with JDK 1.6 and to fix all the known bugs.
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 
 # Releases
 Stable releases can be downloaded here 
@@ -28,7 +41,18 @@ Not very much to add to the system but here are a couple of possibles;
 multi-register request by working out the 'distance' between registers and creating larger requests to reduce the comms overhead of multiple requests
 * Handling ASCII payloads - some industrial Modbus slaves use an ASCII payload to represent their data i.e. a sequence of registers represent a floating point number in ASCII
 * Abstracting the serial comms port interface (currently uses jSerialComm) so that other implementations can be used e.g. USBserial
+<<<<<<< HEAD
 
 # Known Issues
 
 * The jSerialComm has some oddities with regards to Thread.sleep() calls that slowdown operation of the comms port. Every port open call incurs a 500ms delay and every settings change (baud rate, stop bit etc.) to an open port incurs a 200ms delay
+=======
+<<<<<<< HEAD
+>>>>>>> refs/remotes/steveohara/development
+=======
+
+# Known Issues
+
+* The jSerialComm has some oddities with regards to Thread.sleep() calls that slowdown operation of the comms port. Every port open call incurs a 500ms delay and every settings change (baud rate, stop bit etc.) to an open port incurs a 200ms delay
+>>>>>>> refs/remotes/steveohara/development
+>>>>>>> origin/master
